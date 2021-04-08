@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WP.BusinessLayer", "WP.BusinessLayer\WP.BusinessLayer.csproj", "{E2C79D58-DCA6-4241-B009-8218099BD9B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WP.DataLayer", "WP.DataLayer\WP.DataLayer.csproj", "{015F8C1E-ABC9-4567-B721-732F91B25843}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E2C79D58-DCA6-4241-B009-8218099BD9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2C79D58-DCA6-4241-B009-8218099BD9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2C79D58-DCA6-4241-B009-8218099BD9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{015F8C1E-ABC9-4567-B721-732F91B25843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{015F8C1E-ABC9-4567-B721-732F91B25843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{015F8C1E-ABC9-4567-B721-732F91B25843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{015F8C1E-ABC9-4567-B721-732F91B25843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
