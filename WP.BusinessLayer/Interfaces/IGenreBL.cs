@@ -1,16 +1,17 @@
 ﻿
 
 using System.Collections.Generic;
+using WP.BusinessLayer.ObjectValues;
 
 namespace WP.BusinessLayer.Interfaces
 {
-    public interface IBaseEntityBL<T> where T : class
+    public interface IGenreBL
     {
-        void CreateTEntityBL(T entityBL);
-        void UpdateTEntityBL(T entityBL);
-        T GetTEntityBL(int id);
-        IEnumerable<T> GetTEntitysBL();
-        void DeleteTEntitysBL(int id);
+        void Create(GenreBL genre);
+        void Update(GenreBL genre);
+        GenreBL GetGenre(int id);
+        IEnumerable<GenreBL> GetGenres();
+        void DeleteGenre(int id);
         void Dispose();
     }
 }
