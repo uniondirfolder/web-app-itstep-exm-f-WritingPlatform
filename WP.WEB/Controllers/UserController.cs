@@ -31,26 +31,65 @@ namespace WP.WEB.Controllers
         }
         #endregion
 
+        #region With View
+        public ActionResult Index()
+        {
+            return View(AutoMapperBL<IEnumerable<UserBL>, List<UserVM>>.Map(_userBL.GetUsers().Where(x => x.IsDelete == false)));
+        }
+
+        public ActionResult PersonalProfile()
+        {
+            HttpCookie cookieReq = Request.Cookies["Localhost cookie"];
+
+            int ids = 0;
+            if (cookieReq != null)
+            {
+                ids = Convert.ToInt32(cookieReq["ids"]);
+            }
+
+            var item = AutoMapperBL<UserBL, UserVM>.Map(_userBL.GetUser, ids);
+            ViewBag.UserWorksList = _workBL.GetWorks().Where(x => x.UserId == ids).ToList();
+            return View(item);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Update(int id)
+        {
+            var item = AutoMapperBL<UserBL, UserVM>.Map(_userBL.GetUser, id);
+            return View(item);
+        }
+
+        #region HttpGet
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
         {
             return View(new UserVM());
         }
+        #endregion
+
+        #endregion
+
+        #region HttpPost
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login (UserVM userVM, string rtnUrl) 
+        public ActionResult Login(UserVM userVM, string rtnUrl)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
-                if(_authentificationBL.CheckLogin(userVM.Login, userVM.Password)) 
+                if (_authentificationBL.CheckLogin(userVM.Login, userVM.Password))
                 {
-                    if(_authentificationBL.GetUserStatus(userVM.Login, userVM.Password) == false) 
+                    if (_authentificationBL.GetUserStatus(userVM.Login, userVM.Password) == false)
                     {
                         var id = _authentificationBL.GetUserId(userVM.Login, userVM.Password);
 
-                        if (0!=id) 
+                        if (0 != id)
                         {
                             var cookie = new HttpCookie("Localhost cokie");
                             cookie["ids"] = id.ToString();
@@ -76,23 +115,6 @@ namespace WP.WEB.Controllers
             return View();
         }
 
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult Index()
-        {
-            return View(AutoMapperBL<IEnumerable<UserBL>, List<UserVM>>.Map(_userBL.GetUsers().Where(x => x.IsDelete == false)));
-        }
-
-        [AllowAnonymous]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Create(UserVM user)
@@ -111,39 +133,12 @@ namespace WP.WEB.Controllers
             return View("Create");
         }
 
-        public ActionResult Update(int id)
-        {
-            var item = AutoMapperBL<UserBL, UserVM>.Map(_userBL.GetUser, id);
-            return View(item);
-        }
-
         [HttpPost]
         public ActionResult Update(UserVM user)
         {
             var item = AutoMapperBL<UserVM, UserBL>.Map(user);
             _userBL.Update(item);
             return RedirectToActionPermanent("Index", "Users");
-        }
-
-        public ActionResult Delete(int id)
-        {
-            _userBL.DeleteUser(id);
-            return RedirectToAction("Index", "Users");
-        }
-
-        public ActionResult PersonalProfile()
-        {
-            HttpCookie cookieReq = Request.Cookies["Localhost cookie"];
-
-            int ids = 0;
-            if (cookieReq != null)
-            {
-                ids = Convert.ToInt32(cookieReq["ids"]);
-            }
-
-            var item = AutoMapperBL<UserBL, UserVM>.Map(_userBL.GetUser, ids);
-            ViewBag.UserWorksList = _workBL.GetWorks().Where(x => x.UserId == ids).ToList();
-            return View(item);
         }
 
         [HttpPost]
@@ -154,6 +149,24 @@ namespace WP.WEB.Controllers
             return RedirectToActionPermanent("PersonalProfile", "Users");
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult CheckUserName([Bind(Prefix = "Login")] string username)
+        {
+            return Json(!_userBL.GetUsers().Any(u => u.Login == username), JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult Delete(int id)
+        {
+            _userBL.DeleteUser(id);
+            return RedirectToAction("Index", "Users");
+        }
         public ActionResult DeleteAccount()
         {
             HttpCookie cookieReq = Request.Cookies["Localhost cookie"];
@@ -175,11 +188,5 @@ namespace WP.WEB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public JsonResult CheckUserName([Bind(Prefix = "Login")] string username)
-        {
-            return Json(!_userBL.GetUsers().Any(u => u.Login == username), JsonRequestBehavior.AllowGet);
-        }
     }
 }
