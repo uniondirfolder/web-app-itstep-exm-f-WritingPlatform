@@ -6,46 +6,48 @@ using WP.DataLayer.UnitOfWork;
 
 namespace WP.BusinessLayer.Services
 {
-    public class GenreServiceBL : IGenreBL
+    public class GenreServiceBL : ABaseServiceBL, IGenreBL
     {
-        private IUnitOfWork _db;
+        public GenreServiceBL(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
-        public GenreServiceBL(IUnitOfWork unitOfWork)
-        {
-            _db = unitOfWork;
-        }
         public void Create(GenreBL genre)
         {
+            if (null == genre) return;
+
             var item = new Genre() { Name = genre.Name };
-            _db.UowRepositoryGenres.Create(item);
-            _db.Save();
+            Dbcontext.UowRepositoryGenres.Create(item);
+            Dbcontext.Save();
         }
 
         public void DeleteGenre(int id)
         {
-            _db.UowRepositoryGenres.Delete(id);
+            if (0 >= id) return;
+
+            Dbcontext.UowRepositoryGenres.Delete(id);
         }
 
         public void Dispose()
         {
-            _db.Dispose();
+            Dbcontext.Dispose();
         }
 
         public GenreBL GetGenre(int id)
         {
-            return AutoMapperBL<Genre, GenreBL>.Map(_db.UowRepositoryGenres.Get, id);
+            if (0 >= id) return new GenreBL();
+
+            return AutoMapperBL<Genre, GenreBL>.Map(Dbcontext.UowRepositoryGenres.Get, id);
         }
 
         public IEnumerable<GenreBL> GetGenres()
         {
-            return AutoMapperBL<IEnumerable<Genre>, List<GenreBL>>.Map(_db.UowRepositoryGenres.GetAll);
+            return AutoMapperBL<IEnumerable<Genre>, List<GenreBL>>.Map(Dbcontext.UowRepositoryGenres.GetAll);
         }
 
         public void Update(GenreBL genre)
         {
             var item = AutoMapperBL<GenreBL, Genre>.Map(genre);
-            _db.UowRepositoryGenres.Update(item);
-            _db.Save();
+            Dbcontext.UowRepositoryGenres.Update(item);
+            Dbcontext.Save();
         }
     }
 }

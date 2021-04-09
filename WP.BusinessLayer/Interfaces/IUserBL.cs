@@ -6,7 +6,7 @@ namespace WP.BusinessLayer.Interfaces
 {
     public interface IUserBL
     {
-        void Create(UserBL user);
+        bool Create(UserBL user);
         void Update(UserBL user);
         UserBL GetUser(int id);
         IEnumerable<UserBL> GetUsers();

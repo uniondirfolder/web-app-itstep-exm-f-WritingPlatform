@@ -20,6 +20,8 @@ namespace WP.BusinessLayer.Services
         }
         public bool CheckLogin(string login, string password)
         {
+            if (string.IsNullOrEmpty(login) || string.IsNullOrWhiteSpace(login) || string.IsNullOrEmpty(password) || string.IsNullOrWhiteSpace(password)) return false;
+
             return IsCorrectLoginPassword(login, password);
         }
 

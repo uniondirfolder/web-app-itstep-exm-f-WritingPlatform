@@ -8,48 +8,51 @@ using WP.DataLayer.UnitOfWork;
 
 namespace WP.BusinessLayer.Services
 {
-    public class CommentServiceBL : ICommentBL
+    public class CommentServiceBL : ABaseServiceBL, ICommentBL
     {
-        private IUnitOfWork _db;
-
-        public CommentServiceBL(IUnitOfWork unitOfWork)
-        {
-            _db = unitOfWork;
-        }
+        public CommentServiceBL(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public void Create(CommentBL comment)
         {
+            if (null == comment) return;
+
             var item = new Comment() { Body = comment.Comment, UserId = comment.UserId, WorkId = comment.WorkId };
-            _db.UowRepositoryComments.Create(item);
-            _db.Save();
+            Dbcontext.UowRepositoryComments.Create(item);
+            Dbcontext.Save();
         }
 
         public void DeleteComment(int id)
         {
-            _db.UowRepositoryComments.Delete(id);
-            _db.Save();
+            if (0 >= id) return;
+
+            Dbcontext.UowRepositoryComments.Delete(id);
+            Dbcontext.Save();
         }
 
         public void Dispose()
         {
-            _db.Dispose();
+            Dbcontext.Dispose();
         }
 
         public CommentBL GetComment(int id)
         {
-            return AutoMapperBL<Comment, CommentBL>.Map(_db.UowRepositoryComments.Get, id);
+            if (0 >= id) return new CommentBL();
+            
+            return AutoMapperBL<Comment, CommentBL>.Map(Dbcontext.UowRepositoryComments.Get, id);
         }
 
         public IEnumerable<CommentBL> GetComments()
         {
-            return AutoMapperBL<IEnumerable<Comment>, List<CommentBL>>.Map(_db.UowRepositoryComments.GetAll());
+            return AutoMapperBL<IEnumerable<Comment>, List<CommentBL>>.Map(Dbcontext.UowRepositoryComments.GetAll());
         }
 
         public void Update(CommentBL comment)
         {
+            if (null == comment) return;
+
             var item = AutoMapperBL<CommentBL, Comment>.Map(comment);
-            _db.UowRepositoryComments.Update(item);
-            _db.Save();
+            Dbcontext.UowRepositoryComments.Update(item);
+            Dbcontext.Save();
         }
     }
 }

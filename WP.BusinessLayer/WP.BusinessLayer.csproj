@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\ABaseServiceBL.cs" />
     <Compile Include="Services\AutoMapperBL.cs" />
     <Compile Include="Interfaces\IAuthentificationBL.cs" />
     <Compile Include="Interfaces\IGenreBL.cs" />
@@ -85,7 +86,10 @@
     <Compile Include="IoC\ContainerModuleBL.cs" />
     <Compile Include="Services\CommentServiceBL.cs" />
     <Compile Include="Services\GenreServiceBL.cs" />
+    <Compile Include="Services\RatingServiceBL.cs" />
     <Compile Include="Services\UserAuthenticationBL.cs" />
+    <Compile Include="Services\UserServiceBL.cs" />
+    <Compile Include="Services\WorkServiceBL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
