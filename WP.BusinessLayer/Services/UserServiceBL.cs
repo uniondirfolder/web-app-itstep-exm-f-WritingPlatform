@@ -35,6 +35,7 @@ namespace WP.BusinessLayer.Services
             if (0 >= id) return;
 
             Dbcontext.UowRepositoryUsers.Delete(id);
+            Dbcontext.Save();
         }
 
         public void Dispose()

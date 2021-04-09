@@ -21,6 +21,8 @@ namespace WP.BusinessLayer.Services
         public void DeleteWork(int id)
         {
             if (0 >= id) return;
+            Dbcontext.UowRepositoryWorks.Delete(id);
+            Dbcontext.Save();
         }
 
         public void Dispose()

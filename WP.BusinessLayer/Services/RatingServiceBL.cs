@@ -24,6 +24,7 @@ namespace WP.BusinessLayer.Services
             if (0 >= id) return;
 
             Dbcontext.UowRepositoryRatings.Delete(id);
+            Dbcontext.Save();
         }
 
         public void Dispose()
