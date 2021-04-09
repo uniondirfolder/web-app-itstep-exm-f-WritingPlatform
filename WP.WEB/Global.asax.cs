@@ -19,5 +19,11 @@ namespace WP.WEB
 
             IoC.IoCConfig.ConfigurationContainer();
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            HttpApplication app = sender as HttpApplication;
+            app.Response.Filter = null;
+        }
     }
 }

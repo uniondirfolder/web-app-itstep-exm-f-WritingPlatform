@@ -1,0 +1,16 @@
+﻿@model IEnumerable<WP.WEB.Models.ViewModels.WorkVM>
+
+@{ Layout = null; }
+
+
+<h4>Rating : @ViewBag.Ratings</h4>
+
+<h3 class="title-comments">Комментарии (@ViewBag.CommentsList.Count)</h3>
+
+@foreach (var item in ViewBag.CommentsList)
+{
+    <p></p>
+    <td scope="col">Username: @item.UserName</td>
+    <p></p>
+    <td scope="col"><textarea readonly="readonly" class="form-control z-depth-1" rows="3" cols="40"> @item.Comment</textarea></td>
+}

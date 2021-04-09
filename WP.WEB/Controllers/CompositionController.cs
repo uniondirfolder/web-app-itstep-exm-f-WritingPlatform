@@ -36,6 +36,8 @@ namespace WP.WEB.Controllers
         }
 
         #region HttpPost
+
+        #region With View
         [HttpPost]
         public ActionResult Index(string filter)
         {
@@ -73,14 +75,6 @@ namespace WP.WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(WorkVM user)
-        {
-            WorkBL newUser = AutoMapperBL<WorkVM, WorkBL>.Map(user);
-            workBL.Update(newUser);
-            return RedirectToActionPermanent("Index", "Works");
-        }
-
-        [HttpPost]
         public ActionResult Details(WorkVM user)
         {
             HttpCookie cookieReq = Request.Cookies["Localhost cookie"];
@@ -102,7 +96,15 @@ namespace WP.WEB.Controllers
 
             return RedirectToActionPermanent("Index", "Works");
         }
+        #endregion
 
+        [HttpPost]
+        public ActionResult Update(WorkVM user)
+        {
+            WorkBL newUser = AutoMapperBL<WorkVM, WorkBL>.Map(user);
+            workBL.Update(newUser);
+            return RedirectToActionPermanent("Index", "Works");
+        }
         #endregion
 
         public ActionResult PersonalProfile()
@@ -170,8 +172,6 @@ namespace WP.WEB.Controllers
                     ratingBL.Create(newRating);
                 }
             }
-
-
 
             if (work.Name != null)
             {

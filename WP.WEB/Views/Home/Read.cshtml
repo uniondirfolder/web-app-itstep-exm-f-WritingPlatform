@@ -1,0 +1,45 @@
+﻿@using WP.WEB.Helpers
+
+@model WP.WEB.Models.ViewModels.WritingContentVM
+
+<div class="row">
+    <div class="col-md-2">
+        @if (Model.PageInfo.PageNumber > 1)
+        {
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageInfo.PageNumber - 1)"
+               class="btn btn-outline-dark">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Назад
+            </a>
+        }
+    </div>
+        <div class="col-md-8">
+            @{ var str = "";
+              foreach (var item in Model.Content)
+              {
+                str += item.ToString();
+              } 
+             }
+
+            @str
+        </div>
+        <div class="col-md-2">
+            @if (Model.PageInfo.PageNumber < Model.PageInfo.TotalPages)
+            {
+                <a asp-action="Index"
+                   asp-route-page="@(Model.PageInfo.PageNumber + 1)"
+                   class="btn btn-outline-dark">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                    Вперед
+                </a>
+            }
+        </div>
+</div>
+
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Read", "Home", new { page = x }))
+</div>
+
+
