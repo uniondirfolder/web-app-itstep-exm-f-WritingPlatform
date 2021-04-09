@@ -151,7 +151,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\IoCConfig.cs" />
+    <Compile Include="IoC\IoCConfig.cs" />
+    <Compile Include="Models\ViewModels\CommentVM.cs" />
+    <Compile Include="Models\ViewModels\GenreVM.cs" />
+    <Compile Include="Models\ViewModels\RatingVM.cs" />
+    <Compile Include="Models\ViewModels\UserVM.cs" />
+    <Compile Include="Models\ViewModels\UserWithCommentVM.cs" />
+    <Compile Include="Models\ViewModels\UserWithWorkVM.cs" />
+    <Compile Include="Models\ViewModels\WorkVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +303,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -308,6 +314,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WP.BusinessLayer\WP.BusinessLayer.csproj">
+      <Project>{E2C79D58-DCA6-4241-B009-8218099BD9B3}</Project>
+      <Name>WP.BusinessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
