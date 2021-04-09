@@ -1,8 +1,6 @@
 ﻿
-using System.Collections.Generic;
 using System.Web.Mvc;
-using WP.BusinessLayer.Interfaces;
-using WP.WEB.Models.ViewModels;
+
 
 namespace WP.WEB.Controllers
 {
@@ -15,7 +13,7 @@ namespace WP.WEB.Controllers
             return View();
         }
 
-       
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -23,7 +21,7 @@ namespace WP.WEB.Controllers
             return View();
         }
 
-  
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
