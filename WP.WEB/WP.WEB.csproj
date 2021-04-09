@@ -151,7 +151,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagingHelper.cs" />
     <Compile Include="IoC\IoCConfig.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\ViewModels\CommentVM.cs" />
     <Compile Include="Models\ViewModels\GenreVM.cs" />
     <Compile Include="Models\ViewModels\RatingVM.cs" />
