@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WP.WEB.Models.ViewModels.UserVM>
+@{
+    ViewBag.Title = "Все пользователи";
+}
+
+<h2>Все пользователи</h2>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Login)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Login)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+        </tr>
+    }
+
+
+</table>
+
